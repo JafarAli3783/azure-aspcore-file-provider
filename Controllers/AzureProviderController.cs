@@ -134,7 +134,7 @@ namespace EJ2AzureASPCoreFileProvider.Controllers
             AccessDetails accessDetails = new AccessDetails();
             List<AccessRule> Rules = new List<AccessRule> {
                 // Deny writing for particular file
-                new AccessRule { Path = "Files/Documents(1)/EJ2 File Manager.docx", Role = "Document Manager", Read = Permission.Allow, Write = Permission.Deny, Copy = Permission.Deny, Download = Permission.Deny, IsFile = true },
+                new AccessRule { Path = "Files/Documents/EJ2 File Manager.docx", Role = "Document Manager", Read = Permission.Allow, Write = Permission.Deny, Copy = Permission.Deny, Download = Permission.Deny, IsFile = true },
                 // Deny based on the type
                 new AccessRule { Path = "Files/Pictures", Role = "Document Manager", Write = Permission.Deny, WriteContents = Permission.Deny, Upload = Permission.Allow, UploadContentFilter = UploadContentFilter.FoldersOnly, IsFile = false },
             };
