@@ -1026,11 +1026,16 @@ namespace Syncfusion.EJ2.FileManager.AzureFileProvider
             {
                 return null;
             }
-            using (HttpClient client = new HttpClient())
+            string key = ((filesPath ?? string.Empty) + (path ?? string.Empty))
+                            .Replace(blobPath ?? string.Empty, string.Empty)
+                            .TrimStart('/');
+            BlobClient blob = container.GetBlobClient(key);
+            if (!blob.ExistsAsync().GetAwaiter().GetResult())
             {
-                var response = client.GetByteArrayAsync(filesPath + path).Result;
-                return new FileStreamResult(new MemoryStream(response), "APPLICATION/octet-stream");
+                return null;
             }
+            var stream = blob.OpenRead();
+            return new FileStreamResult(stream, "application/octet-stream");
         }
 
         private async Task MoveItems(string sourcePath, string targetPath, string name, string newName)
